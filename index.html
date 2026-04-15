@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreccsSátor — Magyarország vezető sztreccs sátor szállítója</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          sand:  { DEFAULT: '#D4B896', light: '#E8D5BE', dark: '#B8956E' },
+          earth: { DEFAULT: '#8B6F47', dark: '#5C4832', deep: '#3A2D1E' },
+          sage:  { DEFAULT: '#68A357', light: '#8BBD7C', dark: '#4D7941' },
+          sky:   { DEFAULT: '#ACE1FF', soft: '#D6EDFF' },
+          ink:   { DEFAULT: '#0f0d0b', surface: '#1a1714', raised: '#241f19' },
+        },
+        fontFamily: {
+          display: ['"Cormorant Garamond"', 'serif'],
+          body:    ['"DM Sans"', 'sans-serif'],
+        },
+        letterSpacing: { tightest: '-0.04em', tighter: '-0.03em' },
+      }
+    }
+  }
+</script>
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0; padding: 0;
+    font-family: 'DM Sans', sans-serif;
+    background-color: #0f0d0b;
+    color: #f5f0e8;
+    overflow-x: hidden;
+  }
+
+  /* ── CONTAINER ──────────────────────── */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ── NAV ────────────────────────── */
+  #site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    transition: background 0.4s ease, padding 0.4s ease,
+                backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  #site-nav.scrolled {
+    padding: 14px 48px;
+    background: rgba(15,13,11,0.88);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(212,184,150,0.12);
+  }
+
+  .nav-inner {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #f5f0e8;
+    text-decoration: none;
+  }
+  .nav-logo span { color: #D4B896; }
+
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(245,240,232,0.75);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: #D4B896; }
+
+  .nav-cta {
+    background: #D4B896;
+    color: #3A2D1E !important;
+    padding: 10px 22px;
+    border-radius: 3px;
+    font-weight: 500 !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
+    box-shadow: 0 4px 16px rgba(212,184,150,0.25);
+  }
+  .nav-cta:hover {
+    background: #E8D5BE !important;
+    color: #3A2D1E !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(212,184,150,0.35) !important;
+  }
+
+  /* ── HERO ─────────────────────────── */
+  .site-hero {
+    position: relative;
+    height: 100svh;
+    min-height: 580px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    transform: scale(1.08);
+    animation: heroZoom 12s ease-out forwards;
+    will-change: transform;
+  }
+
+  @keyframes heroZoom {
+    to { transform: scale(1); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom,
+        rgba(10,8,6,0.45) 0%,
+        rgba(10,8,6,0.2) 40%,
+        rgba(10,8,6,0.55) 75%,
+        rgba(10,8,6,0.92) 100%
+      );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 24px;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: #D4B896;
+    font-weight: 500;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 7vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: #f5f0e8;
+    margin: 0 0 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.9s ease 0.55s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: #D4B896;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+    color: rgba(245,240,232,0.72);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.8s ease 1.0s forwards;
+  }
+
+  .hero-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #D4B896;
+    color: #3A2D1E;
+    padding: 14px 32px;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 24px rgba(212,184,150,0.3);
+  }
+  .hero-btn-primary:hover {
+    background: #E8D5BE;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 36px rgba(212,184,150,0.4);
+  }
+
+  .hero-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: rgba(245,240,232,0.85);
+    padding: 14px 28px;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.25);
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .hero-btn-secondary:hover {
+    border-color: rgba(212,184,150,0.6);
+    color: #D4B896;
+    background: rgba(212,184,150,0.06);
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.6s forwards;
+  }
+  .hero-scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(212,184,150,0.6), transparent);
+    animation: scrollPulse 2s ease-in-out 2s infinite;
+    transform-origin: top;
+  }
+  @keyframes scrollPulse {
+    0%   { transform: scaleY(0); opacity: 1; }
+    60%  { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(1); opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* ── SPECS BAND ─────────────────── */
+  .specs-band {
+    background: #D4B896;
+    padding: 0;
+    overflow: hidden;
+  }
+  .specs-band .container {
+    display: flex;
+  }
+  .spec-item {
+    flex: 1;
+    padding: 52px 40px;
+    border-right: 1px solid rgba(58,45,30,0.15);
+    position: relative;
+  }
+  .spec-item:last-child { border-right: none; }
+  .spec-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #3A2D1E;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    display: block;
+  }
+  .spec-unit {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(58,45,30,0.6);
+  }
+  .spec-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(58,45,30,0.65);
+    font-weight: 500;
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ── SECTIONS ───────────────────── */
+  section { padding: 120px 40px; }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #D4B896;
+    font-weight: 500;
+    margin-bottom: 16px;
+    display: block;
+  }
+  h2.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #f5f0e8;
+    margin: 0 0 24px;
+  }
+  h2.section-title em {
+    font-style: italic;
+    color: #D4B896;
+  }
+  .section-body {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.65);
+    max-width: 560px;
+  }
+
+  /* ── WHAT IS SECTION ─────────────── */
+  .what-is-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 64px;
+  }
+  .what-is-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .benefit-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: #1a1714;
+    border-radius: 4px;
+    border: 1px solid rgba(212,184,150,0.07);
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .benefit-item:hover {
+    border-color: rgba(212,184,150,0.18);
+    background: #1f1b15;
+  }
+  .benefit-icon {
+    width: 44px; height: 44px;
+    border-radius: 3px;
+    background: rgba(212,184,150,0.1);
+    border: 1px solid rgba(212,184,150,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #D4B896;
+  }
+  .benefit-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #f5f0e8;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .benefit-desc {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: rgba(245,240,232,0.5);
+    margin: 0;
+  }
+  .use-cases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+  }
+  .use-case-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(212,184,150,0.07);
+    border: 1px solid rgba(212,184,150,0.15);
+    border-radius: 24px;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.65);
+    letter-spacing: 0.03em;
+  }
+  .use-case-tag::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #D4B896;
+  }
+
+  /* ── FEATURES GRID ──────────────── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 72px;
+    background: rgba(212,184,150,0.06);
+    border: 1px solid rgba(212,184,150,0.08);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .feature-card {
+    background: #1a1714;
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,184,150,0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .feature-card:hover { background: #241f19; }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon-wrap {
+    width: 56px; height: 56px;
+    margin-bottom: 28px;
+    border-radius: 4px;
+    background: rgba(212,184,150,0.1);
+    border: 1px solid rgba(212,184,150,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature-icon {
+    width: 28px; height: 28px;
+    color: #D4B896;
+    flex-shrink: 0;
+    stroke: #D4B896;
+  }
+  .feature-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: #f5f0e8;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+  .feature-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.5);
+    margin: 0;
+  }
+  .feature-number {
+    position: absolute;
+    top: 24px; right: 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(212,184,150,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* ── ABOUT SPLIT ────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .about-img-stack {
+    position: relative;
+    height: 520px;
+  }
+  .about-img-main {
+    position: absolute;
+    top: 0; left: 0;
+    width: 75%; height: 85%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  }
+  .about-img-accent {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 55%; height: 55%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+    border: 3px solid #0f0d0b;
+  }
+  .about-badge {
+    position: absolute;
+    top: 50%; right: -20px;
+    transform: translateY(-50%);
+    background: #D4B896;
+    color: #3A2D1E;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(212,184,150,0.3);
+    z-index: 2;
+  }
+  .about-badge .badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    display: block;
+  }
+  .about-badge .badge-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: block;
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+
+  /* ── PRODUCTS ───────────────────── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 64px;
+  }
+  .product-card {
+    background: #1a1714;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(212,184,150,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 4px 16px rgba(212,184,150,0.08);
+    border-color: rgba(212,184,150,0.18);
+  }
+  .product-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .product-card:hover .product-img { transform: scale(1.04); }
+  .product-img-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+  .product-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(15,13,11,0.6) 100%);
+  }
+  .product-body { padding: 28px 28px 32px; }
+  .product-size {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #f5f0e8;
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .product-capacity {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.45);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .product-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #D4B896;
+    letter-spacing: -0.01em;
+  }
+  .product-cta {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    padding: 11px 0;
+    border: 1px solid rgba(212,184,150,0.25);
+    border-radius: 3px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .product-cta:hover {
+    background: rgba(212,184,150,0.1);
+    border-color: rgba(212,184,150,0.5);
+    color: #D4B896;
+  }
+
+  /* ── GALLERY ────────────────────── */
+  .gallery-grid {
+    columns: 3;
+    column-gap: 14px;
+    margin-top: 64px;
+  }
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 14px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .gallery-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.04); }
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 55%, rgba(15,13,11,0.55));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .gallery-item:hover::after { opacity: 1; }
+
+  /* Lightbox */
+  #lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,8,6,0.94);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(12px);
+  }
+  #lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #lightbox img {
+    max-width: 88vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 3px;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.7);
+    transform: scale(0.96);
+    transition: transform 0.3s ease;
+  }
+  #lightbox.open img { transform: scale(1); }
+  #lightbox-close {
+    position: absolute;
+    top: 28px; right: 36px;
+    width: 44px; height: 44px;
+    border: 1px solid rgba(212,184,150,0.25);
+    border-radius: 3px;
+    background: rgba(26,23,20,0.8);
+    color: rgba(245,240,232,0.7);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  #lightbox-close:hover {
+    border-color: rgba(212,184,150,0.6);
+    color: #D4B896;
+  }
+  #lightbox-prev, #lightbox-next {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 52px; height: 52px;
+    border: 1px solid rgba(212,184,150,0.2);
+    border-radius: 3px;
+    background: rgba(26,23,20,0.7);
+    color: rgba(245,240,232,0.7);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  #lightbox-prev { left: 28px; }
+  #lightbox-next { right: 28px; }
+  #lightbox-prev:hover, #lightbox-next:hover {
+    background: rgba(212,184,150,0.12);
+    border-color: rgba(212,184,150,0.5);
+    color: #D4B896;
+  }
+
+  /* ── TESTIMONIALS ───────────────── */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+  .testimonial-card {
+    background: #1a1714;
+    border-radius: 6px;
+    padding: 40px 36px;
+    border: 1px solid rgba(212,184,150,0.07);
+    position: relative;
+    overflow: hidden;
+  }
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(212,184,150,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 28px;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .testimonial-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #D4B896, #8B6F47);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #3A2D1E;
+    flex-shrink: 0;
+  }
+  .testimonial-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #f5f0e8;
+    display: block;
+  }
+  .testimonial-title {
+    font-size: 0.78rem;
+    color: rgba(245,240,232,0.4);
+    display: block;
+    margin-top: 2px;
+  }
+  .stars {
+    color: #D4B896;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  /* ── CONTACT ────────────────────── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-field { display: flex; flex-direction: column; gap: 8px; }
+  .form-field label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.45);
+    font-weight: 500;
+  }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    background: #1a1714;
+    border: 1px solid rgba(212,184,150,0.12);
+    border-radius: 3px;
+    padding: 14px 16px;
+    font-size: 0.9375rem;
+    color: #f5f0e8;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: rgba(212,184,150,0.4);
+    box-shadow: 0 0 0 3px rgba(212,184,150,0.06);
+  }
+  .form-field textarea { resize: vertical; min-height: 120px; }
+  .form-field select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(212,184,150,0.5)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 42px;
+  }
+  .btn-submit {
+    background: #D4B896;
+    color: #3A2D1E;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 20px rgba(212,184,150,0.2);
+    align-self: flex-start;
+  }
+  .btn-submit:hover {
+    background: #E8D5BE;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(212,184,150,0.3);
+  }
+  .btn-submit:active { transform: translateY(0); }
+  .contact-info { display: flex; flex-direction: column; gap: 36px; }
+  .contact-info-item { display: flex; gap: 20px; align-items: flex-start; }
+  .contact-info-icon {
+    width: 42px; height: 42px;
+    border-radius: 3px;
+    background: rgba(212,184,150,0.08);
+    border: 1px solid rgba(212,184,150,0.12);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: #D4B896;
+  }
+  .contact-info-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .contact-info-value {
+    font-size: 1rem;
+    color: #f5f0e8;
+    line-height: 1.5;
+  }
+  .contact-info-value a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .contact-info-value a:hover { color: #D4B896; }
+
+  /* ── FOOTER ─────────────────────── */
+  footer {
+    background: #0a0806;
+    border-top: 1px solid rgba(212,184,150,0.07);
+    padding: 60px 40px;
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(245,240,232,0.5);
+  }
+  .footer-logo span { color: #D4B896; }
+  .footer-copy { font-size: 0.8rem; color: rgba(245,240,232,0.25); }
+
+  /* ── DIVIDERS ───────────────────── */
+  .section-separator {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212,184,150,0.12), transparent);
+    margin: 0 40px;
+  }
+
+  /* ── SCROLL REVEAL ──────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* Counting animation */
+  .count-up { transition: none; }
+
+  /* ── RESPONSIVE ─────────────────── */
+  @media (max-width: 1024px) {
+    section { padding: 80px 32px; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 60px; }
+    .about-img-stack { height: 360px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+    .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+    .gallery-grid { columns: 2; }
+    .specs-band .container { flex-wrap: wrap; }
+    .spec-item { flex: 0 0 50%; }
+    .what-is-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  @media (max-width: 768px) {
+    #site-nav { padding: 18px 20px; }
+    #site-nav.scrolled { padding: 12px 20px; }
+    .nav-links { display: none; }
+    section { padding: 64px 20px; }
+    .section-separator { margin: 0 20px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .gallery-grid { columns: 1; }
+    .specs-band .container { flex-direction: column; }
+    .spec-item { border-right: none; border-bottom: 1px solid rgba(58,45,30,0.15); }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 40px 20px; }
+    .about-badge { right: 0; }
+    .hero-title { font-size: clamp(2.2rem, 9vw, 4rem); }
+    .hero-actions { gap: 12px; }
+    .hero-btn-primary, .hero-btn-secondary { padding: 13px 22px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" aria-label="Bezárás">✕</button>
+  <button id="lightbox-prev" aria-label="Előző">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <img id="lightbox-img" src="" alt="">
+  <button id="lightbox-next" aria-label="Következő">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="site-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Sztreccs<span>Sátor</span></a>
+    <div class="nav-links">
+      <a href="#mi-az">Mi ez?</a>
+      <a href="#rolunk">Rólunk</a>
+      <a href="#satorak">Sátraink</a>
+      <a href="#galeria">Galéria</a>
+      <a href="#kapcsolat" class="nav-cta">Árajánlat kérése</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="site-hero">
+  <img class="hero-bg" src="hero.webp" alt="Sztreccs sátor napos réten" fetchpriority="high">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Magyarország vezető sztreccs sátor szállítója</span>
+    <h1 class="hero-title">Formáld meg<br><em>tökéletes eseményed</em></h1>
+    <p class="hero-sub">Prémium sztreccs sátrak — intim kerti partiктól nagyszabású fesztiválokig</p>
+    <div class="hero-actions">
+      <a href="#satorak" class="hero-btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Sátrainkat nézem
+      </a>
+      <a href="#mi-az" class="hero-btn-secondary">Mi az a sztreccs sátor?</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>Görgets</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SPECS BAND -->
+<div class="specs-band">
+  <div class="container">
+    <div class="spec-item reveal">
+      <span class="spec-value">85<span class="spec-unit"> km/h</span></span>
+      <span class="spec-label">Szélállóság (8 Beaufort)</span>
+    </div>
+    <div class="spec-item reveal reveal-delay-1">
+      <span class="spec-value">720<span class="spec-unit"> g/m²</span></span>
+      <span class="spec-label">PVC bevonatú prémium szövet</span>
+    </div>
+    <div class="spec-item reveal reveal-delay-2">
+      <span class="spec-value">100<span class="spec-unit">%</span></span>
+      <span class="spec-label">Vízálló (napi 2000 mm)</span>
+    </div>
+    <div class="spec-item reveal reveal-delay-3">
+      <span class="spec-value">1<span class="spec-unit"> év</span></span>
+      <span class="spec-label">Teljes körű garancia minden sátorra</span>
+    </div>
+  </div>
+</div>
+
+<!-- MI AZ A SZTRECCS SÁTOR -->
+<section id="mi-az" style="background:#0f0d0b;">
+  <div class="container">
+    <span class="section-eyebrow reveal">Mi az a sztreccs sátor?</span>
+    <h2 class="section-title reveal reveal-delay-1" style="max-width:760px;">
+      A modern rendezvénysátor,<br><em>amely minden formát felvesz</em>
+    </h2>
+
+    <div class="what-is-grid">
+      <div>
+        <p class="section-body reveal reveal-delay-2" style="margin-bottom:24px;">
+          A sztreccs sátor (más néven afrikai sátor) egy rendkívül rugalmas, víz- és szélálló technikai anyagból készült modern rendezvénysátor, amely egyedi, organikus formákban feszíthető ki. Különleges, stílusos megjelenése miatt népszerű esküvőkön és fesztiválokon — szinte bármilyen egyenetlen terephez alkalmazkodik.
+        </p>
+        <p class="section-body reveal reveal-delay-2">
+          A sátorvászon nyújtható, így a magassági pontok változtatásával különböző formák hozhatók létre. Csatlakoztatható meglévő épületekhez, falakhoz és más struktúrákhoz is. Az eredmény: egy vizuálisan lenyűgöző, légies tér, amely tökéletes védelmet nyújt az időjárás ellen.
+        </p>
+
+        <div class="use-cases reveal reveal-delay-3">
+          <span class="use-case-tag">Esküvők</span>
+          <span class="use-case-tag">Fesztiválok</span>
+          <span class="use-case-tag">Kerti partik</span>
+          <span class="use-case-tag">Vendéglátás</span>
+          <span class="use-case-tag">Céges rendezvények</span>
+          <span class="use-case-tag">Állandó telepítés</span>
+          <span class="use-case-tag">Bérbeadás</span>
+          <span class="use-case-tag">Camping</span>
+        </div>
+
+        <div style="margin-top:40px; display:flex; gap:48px;" class="reveal reveal-delay-3">
+          <div>
+            <span style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:700; color:#D4B896; letter-spacing:-0.03em; line-height:1;">9</span>
+            <span style="font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(245,240,232,0.4); display:block; margin-top:4px;">Méret</span>
+          </div>
+          <div>
+            <span style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:700; color:#D4B896; letter-spacing:-0.03em; line-height:1;">24h</span>
+            <span style="font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(245,240,232,0.4); display:block; margin-top:4px;">Kiszállítás</span>
+          </div>
+          <div>
+            <span style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:700; color:#D4B896; letter-spacing:-0.03em; line-height:1;">M1</span>
+            <span style="font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(245,240,232,0.4); display:block; margin-top:4px;">Tűzbizonyítvány</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="what-is-benefits">
+        <div class="benefit-item reveal">
+          <div class="benefit-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 10v12h20V10L12 2z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="benefit-title">Rugalmasság és alakíthatóság</span>
+            <p class="benefit-desc">A sátorvászon nyújtható, így különböző magassági pontokkal egyedi formák hozhatók létre — egyenetlen talajon, sziklás terepen és épületek mellé is felállítható.</p>
+          </div>
+        </div>
+        <div class="benefit-item reveal reveal-delay-1">
+          <div class="benefit-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="benefit-title">Teljes időjárásállóság</span>
+            <p class="benefit-desc">100% vízállóság (napi 2000 mm), 85 km/h szélállóság és UV-álló szövet gondoskodik arról, hogy eseményed minden körülmény között zavartalanul zajljon.</p>
+          </div>
+        </div>
+        <div class="benefit-item reveal reveal-delay-2">
+          <div class="benefit-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <div>
+            <span class="benefit-title">Esztétikus megjelenés</span>
+            <p class="benefit-desc">Modern, kreatív és légies hangulatot teremt — ez az, amiért a sztreccs sátor az esküvők, kerti partik és prémium rendezvények első számú választása lett.</p>
+          </div>
+        </div>
+        <div class="benefit-item reveal reveal-delay-3">
+          <div class="benefit-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div>
+            <span class="benefit-title">Kiváló befektetés</span>
+            <p class="benefit-desc">Bérbeadásra, vendéglátásra vagy állandó telepítésre egyaránt ideális. Aktívan segítjük ügyfeleinket saját sztreccs sátor bérlési vállalkozásuk elindításában.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-separator"></div>
+
+<!-- ABOUT -->
+<section id="rolunk" style="background:#0f0d0b;">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-stack reveal">
+        <img class="about-img-main"
+             src="https://sztreccssator.hu/wp-content/uploads/2025/09/20250829_134613934_iOS-1024x768.jpg"
+             alt="Sztreccs sátor gyártás" loading="lazy">
+        <img class="about-img-accent"
+             src="https://sztreccssator.hu/wp-content/uploads/2025/08/imgi_94_Productie_06.jpg"
+             alt="Szövet gyártás részlet" loading="lazy">
+        <div class="about-badge">
+          <span class="badge-num">20+</span>
+          <span class="badge-text">Év szakmai<br>tapasztalat</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="section-eyebrow reveal">Rólunk</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          Magyar mesterség,<br><em>globális minőség</em>
+        </h2>
+        <p class="section-body reveal reveal-delay-2" style="margin-bottom:24px;">
+          A Ponyva Faktor Kft. több mint két évtizede foglalkozik ponyva- és sátorgyártással. Teherautó-ponyvától a világszínvonalú sztreccs sátrakig, minden projektbe ugyanolyan megszállott minőségi szemléletet viszünk.
+        </p>
+        <p class="section-body reveal reveal-delay-2">
+          Sztreccs sátraink megfelelnek a holland NEN-EN 8020-41:2012 szabványnak — az iparág legszigorúbb előírásának — és minden sátor teljes hardverkészlettel, telepítési útmutatóval és egyéves garanciával érkezik.
+        </p>
+        <p class="section-body reveal reveal-delay-2" style="margin-top:16px;">
+          Debreceni telephelyünkön előre egyeztetett időpontban személyes bemutatóra is van lehetőség. <strong style="color:#D4B896;">„A legjobb minőség a legjobb áron Magyarországon"</strong> — ez az ígéretünk.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-separator"></div>
+
+<!-- FEATURES -->
+<section style="background:#0f0d0b;">
+  <div class="container">
+    <div style="text-align:center; max-width:680px; margin:0 auto 0;">
+      <span class="section-eyebrow reveal">Miért minket válassz</span>
+      <h2 class="section-title reveal reveal-delay-1" style="margin:0 auto;">
+        Teljesítményre tervezve,<br><em>lenyűgözésre alkotva</em>
+      </h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <span class="feature-number">01</span>
+        <div class="feature-icon-wrap">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 10v12h20V10L12 2z"/><path d="M12 22V12"/><path d="M2 10h20"/>
+          </svg>
+        </div>
+        <h3>Bármilyen terep, bármilyen forma</h3>
+        <p>A nyújtható vászon egyenetlen talajhoz, sziklás területhez és lejtőkhöz is alkalmazkodik — ahol merev sátrak kudarcot vallanak. Épületekhez is csatlakoztatható.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-number">02</span>
+        <div class="feature-icon-wrap">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3>Gyors 24 órás kiszállítás</h3>
+        <p>Minden sátor Debrecenből indul, aznapi kiszállítással Magyarország egész területére. Teljes készlet a dobozban — nincsenek rejtett pótrendelések.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-number">03</span>
+        <div class="feature-icon-wrap">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <h3>Prémium 720 g/m² szövet</h3>
+        <p>Házilag fejlesztett PVC bevonat teljes vízállóságot, UV 8-as védelmet és 1000 N/5 cm-es szakítószilárdságot biztosít — penész- és tűzálló M1 tanúsítvánnyal.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <span class="feature-number">04</span>
+        <div class="feature-icon-wrap">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h3>Bérlésre kész befektetés</h3>
+        <p>Aktívan támogatjuk azokat az ügyfeleket, akik saját sztreccs sátor bérlési vállalkozást indítanak — a konfiguráció tanácsadástól az üzleti modell kialakításáig.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-separator"></div>
+
+<!-- TENTS / PRODUCTS -->
+<section id="satorak" style="background:#0f0d0b;">
+  <div class="container">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px;">
+      <div>
+        <span class="section-eyebrow reveal">Kollekcióink</span>
+        <h2 class="section-title reveal reveal-delay-1" style="margin-bottom:0;">
+          Találd meg<br><em>tökéletes méretед</em>
+        </h2>
+      </div>
+      <p class="section-body reveal" style="max-width:380px; margin:0; padding-bottom:8px;">
+        Kilenc szabványméret — az intim 5×5 m-es partiктól a 150 fős 10×15 m-es fesztiválfedezékig. Mindegyik teljes hardverkészlettel érkezik.
+      </p>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/StretchtentFactory5x5_01-1.jpg" alt="5×5 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">5 × 5 m</span>
+          <span class="product-capacity">Max. 25 álló · 15 ülő</span>
+          <span class="product-price">888 810 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-7x5_01-1-1024x700.jpg" alt="5×7 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">5 × 7 m</span>
+          <span class="product-capacity">Max. 50 álló · 50 ülő</span>
+          <span class="product-price">1 198 860 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-7x7_01-1-1024x700.jpg" alt="7×7 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">7 × 7 m</span>
+          <span class="product-capacity">Max. 50 álló · 30 ülő</span>
+          <span class="product-price">1 349 338 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x6_01-1-1024x700.jpg" alt="6×10 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">6 × 10 m</span>
+          <span class="product-capacity">Max. 60 álló · 40 ülő</span>
+          <span class="product-price">1 736 280 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x7-7-1-1024x700.jpg" alt="7×10 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">7 × 10 m</span>
+          <span class="product-capacity">Max. 70 álló · 50 ülő</span>
+          <span class="product-price">2 025 660 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2" style="position:relative;">
+        <div style="position:absolute; top:16px; right:16px; z-index:3;
+                    background:#D4B896; color:#3A2D1E; font-size:0.65rem;
+                    font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+                    padding:4px 10px; border-radius:2px;">
+          Legnépszerűbb
+        </div>
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x8_01-2-1024x700.jpg" alt="8×10 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">8 × 10 m</span>
+          <span class="product-capacity">Max. 80 álló · 50 ülő</span>
+          <span class="product-price">2 170 350 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x10_01-1024x700.jpg" alt="10×10 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">10 × 10 m</span>
+          <span class="product-capacity">Max. 100 álló · 65 ülő</span>
+          <span class="product-price">2 397 720 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x12_01-1-1024x700.jpg" alt="10×12 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">10 × 12 m</span>
+          <span class="product-capacity">Max. 120 álló · 80 ülő</span>
+          <span class="product-price">2 769 780 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-img-wrap">
+          <img class="product-img" src="https://sztreccssator.hu/wp-content/uploads/2025/09/Stretchtent-10x12_07.jpg" alt="10×15 Sztreccs Sátor" loading="lazy">
+        </div>
+        <div class="product-body">
+          <span class="product-size">10 × 15 m</span>
+          <span class="product-capacity">Max. 150+ álló · 120 ülő</span>
+          <span class="product-price">3 699 930 Ft</span>
+          <a href="#kapcsolat" class="product-cta">Árajánlat kérése</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Package includes -->
+    <div style="margin-top:48px; padding:32px 40px; background:#1a1714; border-radius:6px; border:1px solid rgba(212,184,150,0.08); display:flex; align-items:flex-start; gap:24px;" class="reveal">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4B896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <div>
+        <p style="font-weight:500; color:#f5f0e8; margin:0 0 6px; font-size:0.9375rem;">Minden sátor komplett felszereléssel érkezik</p>
+        <p style="color:rgba(245,240,232,0.5); margin:0; font-size:0.875rem; line-height:1.6;">
+          Oszlopkészlet · Középső rúd · 100 cm-es karó · Karabiner (M12) · Szemcsavar (M12) · Kötélracsni · Hordtáska · Konfigurációs diagram · 1 év teljes garancia
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-separator"></div>
+
+<!-- GALLERY -->
+<section id="galeria" style="background:#0f0d0b;">
+  <div class="container">
+    <span class="section-eyebrow reveal">Galéria</span>
+    <h2 class="section-title reveal reveal-delay-1">Sztreccs sátrak<br><em>a valóságban</em></h2>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x8_06-2-1024x700.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x8_06-2-1024x700.jpg" alt="10×8 sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x8_01-2-1024x700.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x8_01-2-1024x700.jpg" alt="10×8 sztreccs sátor réten" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-5x5_12-3.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-5x5_12-3.jpg" alt="5×5 kompakt sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x7-1.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x7-1.jpg" alt="7×10 sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-5x5_09-3.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-5x5_09-3.jpg" alt="5×5 sztreccs sátor kültéren" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/imgi_110_Stretchtent-5x5_03.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/imgi_110_Stretchtent-5x5_03.jpg" alt="Sztreccs sátor telepítés" loading="lazy">
+      </div>
+      <div class="gallery-item reveal" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x10_01-1024x700.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x10_01-1024x700.jpg" alt="10×10 sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x12_01-1-1024x700.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-10x12_01-1-1024x700.jpg" alt="10×12 sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" data-src="https://sztreccssator.hu/wp-content/uploads/2025/09/Stretchtent-10x12_07.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/09/Stretchtent-10x12_07.jpg" alt="Nagy sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/StretchtentFactory5x5_01-1.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/StretchtentFactory5x5_01-1.jpg" alt="5×5 sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-7x7_01-1-1024x700.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/08/Stretchtent-7x7_01-1-1024x700.jpg" alt="7×7 sztreccs sátor" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" data-src="https://sztreccssator.hu/wp-content/uploads/2025/09/20250829_134613934_iOS-1024x768.jpg">
+        <img src="https://sztreccssator.hu/wp-content/uploads/2025/09/20250829_134613934_iOS-1024x768.jpg" alt="Gyártás" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-separator"></div>
+
+<!-- TESTIMONIALS -->
+<section style="background:#0f0d0b;">
+  <div class="container">
+    <div style="text-align:center; max-width:580px; margin:0 auto 0;">
+      <span class="section-eyebrow reveal">Vélemények</span>
+      <h2 class="section-title reveal reveal-delay-1" style="margin:0 auto;">
+        Rendezvényszervezők<br><em>bíznak bennünk</em>
+      </h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <span class="stars">★★★★★</span>
+        <p class="testimonial-text">
+          „Elképesztő volt a tapasztalatunk! Sztreccs sátraik a legjobb minőségűek, elegánsan néztek ki és tökéletesen megfeleltek rendezvényünknek. A szállítástól a felállításig minden zökkenőmentesen és professzionálisan zajlott."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">OS</div>
+          <div>
+            <span class="testimonial-name">Olivar Svensson</span>
+            <span class="testimonial-title">Ügyvezető asszisztens</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="stars">★★★★★</span>
+        <p class="testimonial-text">
+          „Mindent időben szállítottak és gondosan összeszereltek. A robusztus és elegáns sztreccs sátoroknak köszönhetően változékony időjárásban is zavartalanul megrendezhettük eseményünket. Profi partner, aki valóban velünk gondolkodik."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">TB</div>
+          <div>
+            <span class="testimonial-name">Till Bruden</span>
+            <span class="testimonial-title">Elnök, N. Medical Partners</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="stars">★★★★★</span>
+        <p class="testimonial-text">
+          „Néhány éve vettük a sztreccs sátrat és még mindig teljesen elégedettek vagyunk! A sátor prémium minőségű, nagyon robusztus — évnyi kültéri használat után is úgy áll, mint az új. Messze felülmúlta elvárásainkat."
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">IB</div>
+          <div>
+            <span class="testimonial-name">Ivor Bjorling</span>
+            <span class="testimonial-title">Vezérigazgató</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-separator"></div>
+
+<!-- CONTACT -->
+<section id="kapcsolat" style="background:#0f0d0b;">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <span class="section-eyebrow reveal">Kapcsolat</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          Tervezzük meg<br><em>tökéletes sátorod</em>
+        </h2>
+        <p class="section-body reveal reveal-delay-2" style="margin-bottom:48px;">
+          Mesélj az eseményedről és megtaláljuk a számodra legmegfelelőbb sztreccs sátrat. Hétfőtől péntekig 07:00–16:00 között elérhetőek vagyunk.
+        </p>
+
+        <div class="contact-info">
+          <div class="contact-info-item reveal">
+            <div class="contact-info-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.35 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 16z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="contact-info-label">Telefon</span>
+              <span class="contact-info-value"><a href="tel:+36209711096">+36 20 971 1096</a></span>
+            </div>
+          </div>
+
+          <div class="contact-info-item reveal reveal-delay-1">
+            <div class="contact-info-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <span class="contact-info-label">E-mail</span>
+              <span class="contact-info-value"><a href="mailto:info@sztreccssator.hu">info@sztreccssator.hu</a></span>
+            </div>
+          </div>
+
+          <div class="contact-info-item reveal reveal-delay-2">
+            <div class="contact-info-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <span class="contact-info-label">Cím</span>
+              <span class="contact-info-value">Ponyva Faktor Kft<br>4031 Debrecen, Hegedű utca 2</span>
+            </div>
+          </div>
+
+          <div class="contact-info-item reveal reveal-delay-3">
+            <div class="contact-info-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <span class="contact-info-label">Nyitvatartás</span>
+              <span class="contact-info-value">H–P, 07:00–16:00<br><span style="color:rgba(245,240,232,0.35); font-size:0.85rem;">Munkaidőn kívül egyeztetés szerint</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="fname">Keresztnév</label>
+              <input type="text" id="fname" name="fname" placeholder="Kovács" required>
+            </div>
+            <div class="form-field">
+              <label for="lname">Vezetéknév</label>
+              <input type="text" id="lname" name="lname" placeholder="János" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="email">E-mail cím</label>
+            <input type="email" id="email" name="email" placeholder="kovacs@email.hu" required>
+          </div>
+          <div class="form-field">
+            <label for="phone">Telefonszám</label>
+            <input type="tel" id="phone" name="phone" placeholder="+36 ...">
+          </div>
+          <div class="form-field">
+            <label for="tent">Érdeklő sátorméret</label>
+            <select id="tent" name="tent">
+              <option value="">— Válassz méretet —</option>
+              <option>5 × 5 m</option>
+              <option>5 × 7 m</option>
+              <option>7 × 7 m</option>
+              <option>6 × 10 m</option>
+              <option>7 × 10 m</option>
+              <option>8 × 10 m</option>
+              <option>10 × 10 m</option>
+              <option>10 × 12 m</option>
+              <option>10 × 15 m</option>
+              <option>Még nem tudom</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="message">Üzenet</label>
+            <textarea id="message" name="message" placeholder="Mesélj az eseményedről — dátum, helyszín, vendégszám..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Ajánlatot kérek</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Sztreccs<span>Sátor</span></div>
+    <p class="footer-copy">
+      © 2026 Ponyva Faktor Kft · 4031 Debrecen, Hegedű utca 2 · Adószám: 24147736-2-09
+    </p>
+    <p class="footer-copy" style="margin:0;">
+      Magyar szívvel, mesterien készítve
+    </p>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+// ── NAV SCROLL ──────────────────────────
+const nav = document.getElementById('site-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+// ── SCROLL REVEAL ────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
+
+// ── GALLERY LIGHTBOX ─────────────────────
+const galleryItems = Array.from(document.querySelectorAll('.gallery-item[data-src]'));
+const lightbox     = document.getElementById('lightbox');
+const lbImg        = document.getElementById('lightbox-img');
+const lbClose      = document.getElementById('lightbox-close');
+const lbPrev       = document.getElementById('lightbox-prev');
+const lbNext       = document.getElementById('lightbox-next');
+let currentIdx = 0;
+
+const openLightbox = (idx) => {
+  currentIdx = idx;
+  lbImg.src = galleryItems[idx].dataset.src;
+  lbImg.alt = galleryItems[idx].querySelector('img').alt;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+const closeLightbox = () => {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+};
+const showPrev = () => openLightbox((currentIdx - 1 + galleryItems.length) % galleryItems.length);
+const showNext = () => openLightbox((currentIdx + 1) % galleryItems.length);
+
+galleryItems.forEach((item, idx) => {
+  item.addEventListener('click', () => openLightbox(idx));
+});
+lbClose.addEventListener('click', closeLightbox);
+lbPrev.addEventListener('click', showPrev);
+lbNext.addEventListener('click', showNext);
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') showPrev();
+  if (e.key === 'ArrowRight') showNext();
+});
+
+// ── FORM SUBMIT ──────────────────────────
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-submit');
+  btn.textContent = 'Üzenet elküldve ✓';
+  btn.style.background = '#68A357';
+  btn.style.color = '#f5f0e8';
+  btn.disabled = true;
+}
+</script>
+
+</body>
+</html>
