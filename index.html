@@ -1599,7 +1599,11 @@
       </div>
 
       <div class="reveal reveal-delay-1">
-        <form class="contact-form" onsubmit="handleSubmit(event)">
+        <form class="contact-form" onsubmit="handleSubmit(event)" action="https://formsubmit.co/ajax/info@sztreccssator.hu" method="POST">
+          <input type="hidden" name="_subject" value="Új ajánlatkérés — SztreccsSátor weboldal">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
           <div class="form-row">
             <div class="form-field">
               <label for="fname">Keresztnév</label>
@@ -1716,13 +1720,44 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ── FORM SUBMIT ──────────────────────────
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.btn-submit');
-  btn.textContent = 'Üzenet elküldve ✓';
-  btn.style.background = '#68A357';
-  btn.style.color = '#f5f0e8';
+  const form = e.target;
+  const btn = form.querySelector('.btn-submit');
+  const originalText = btn.textContent;
+  const originalBg = btn.style.background;
+  const originalColor = btn.style.color;
+
   btn.disabled = true;
+  btn.textContent = 'Küldés folyamatban…';
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    });
+    const data = await res.json().catch(() => ({}));
+
+    if (res.ok && (data.success === 'true' || data.success === true)) {
+      btn.textContent = 'Üzenet elküldve ✓';
+      btn.style.background = '#68A357';
+      btn.style.color = '#f5f0e8';
+      form.reset();
+    } else {
+      throw new Error(data.message || 'Küldési hiba');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Hiba — próbáld újra';
+    btn.style.background = '#B5443A';
+    btn.style.color = '#f5f0e8';
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = originalBg;
+      btn.style.color = originalColor;
+    }, 3500);
+  }
 }
 </script>
 
