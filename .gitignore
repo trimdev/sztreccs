@@ -3,3 +3,19 @@ screenshots/
 screenshots-*/
 ._*
 *.DS_Store
+
+# Next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# Env
+.env*.local
+.env
+
+# TypeScript
+*.tsbuildinfo
+
+# Vercel
+.vercel/
