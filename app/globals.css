@@ -289,6 +289,7 @@ body {
   border-right: 1px solid rgba(58,45,30,0.15);
   margin: 0;
   position: relative;
+  text-align: center;
 }
 .spec-item:last-child { border-right: none; }
 .specs-band dl { margin: 0; }
