@@ -14,13 +14,15 @@ export function Contact() {
     const form = e.currentTarget;
     setState("submitting");
     try {
-      const res = await fetch(form.action, {
+      const fd = new FormData(form);
+      const payload = Object.fromEntries(fd.entries());
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(form),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      const data = (await res.json().catch(() => ({}))) as { success?: string | boolean };
-      if (res.ok && (data.success === "true" || data.success === true)) {
+      const data = (await res.json().catch(() => ({}))) as { success?: boolean };
+      if (res.ok && data.success === true) {
         setState("success");
         form.reset();
       } else throw new Error("submit failed");
@@ -120,12 +122,9 @@ export function Contact() {
             <form
               className="contact-form"
               onSubmit={handleSubmit}
-              action="https://formsubmit.co/ajax/info@sztreccssator.hu"
+              action="/api/contact"
               method="POST"
             >
-              <input type="hidden" name="_subject" value="Új ajánlatkérés — SztreccsSátor weboldal" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
               <input
                 type="text"
                 name="_honey"
