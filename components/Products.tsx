@@ -32,9 +32,9 @@ export function Products() {
           <Reveal
             as="p"
             className="section-body"
-            style={{ maxWidth: 380, margin: 0, paddingBottom: 8 }}
+            style={{ maxWidth: 560, margin: 0, paddingBottom: 8 }}
           >
-            Kilenc szabványméret — az intim 5×5 m-es partiktól a 150 fős 10×15 m-es fesztiválfedezékig. Mindegyik teljes hardverkészlettel érkezik.
+            Kilenc szabványméret — az 5×5 m-es, kisebb partik lebonyolítására alkalmas sátortól egészen a 10×15 m-es, akár 150 fő részére is megfelelő fesztiválsátorig. Természetesen lehetőség van több sátor egybeépítésére is. Minden sátor a felállításhoz szükséges teljes készlettel rendelkezik.
           </Reveal>
         </div>
 
