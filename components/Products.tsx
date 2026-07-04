@@ -60,12 +60,16 @@ export function Products() {
                 />
               </div>
               <div className="product-body">
-                <span className="product-size">{p.size}</span>
+                <h3 className="product-size">{p.size}</h3>
                 <span className="product-capacity">
                   Max. {p.capacityStanding} álló · {p.capacitySeated} ülő
                 </span>
                 <span className="product-price">{formatPriceHUF(p.priceHUF)}</span>
-                <a href="#kapcsolat" className="product-cta">
+                <a
+                  href="#kapcsolat"
+                  className="product-cta"
+                  aria-label={`Árajánlat kérése — ${p.size}`}
+                >
                   Árajánlat kérése
                 </a>
               </div>
@@ -95,6 +99,7 @@ export function Products() {
             strokeLinecap="round"
             strokeLinejoin="round"
             style={{ flexShrink: 0, marginTop: 2 }}
+            aria-hidden="true"
           >
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
             <polyline points="22 4 12 14.01 9 11.01" />

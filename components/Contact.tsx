@@ -111,7 +111,7 @@ export function Contact() {
                   <span className="contact-info-label">Nyitvatartás</span>
                   <span className="contact-info-value">
                     {SITE.hours.days}, {SITE.hours.open}–{SITE.hours.close}<br />
-                    <span style={{ color: "rgba(245,240,232,0.35)", fontSize: "0.85rem" }}>Munkaidőn kívül egyeztetés szerint</span>
+                    <span style={{ color: "rgba(245,240,232,0.6)", fontSize: "0.85rem" }}>Munkaidőn kívül egyeztetés szerint</span>
                   </span>
                 </div>
               </Reveal>

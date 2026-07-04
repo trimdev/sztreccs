@@ -14,7 +14,7 @@ export function WhatIs() {
     fontSize: "0.75rem",
     letterSpacing: "0.12em",
     textTransform: "uppercase",
-    color: "rgba(245,240,232,0.4)",
+    color: "rgba(245,240,232,0.62)",
     display: "block",
     marginTop: "4px",
   };
@@ -100,12 +100,13 @@ export function WhatIs() {
                   strokeWidth="1.75"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  aria-hidden="true"
                 >
                   <path d="M12 2L2 10v12h20V10L12 2z" />
                 </svg>
               </div>
               <div>
-                <span className="benefit-title">Rugalmasság és alakíthatóság</span>
+                <h3 className="benefit-title">Rugalmasság és alakíthatóság</h3>
                 <p className="benefit-desc">
                   A sátorvászon nyújtható, így különböző magassági pontokkal egyedi formák hozhatók létre — egyenetlen talajon, sziklás terepen és épületek mellé is felállítható.
                 </p>
@@ -122,12 +123,13 @@ export function WhatIs() {
                   strokeWidth="1.75"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  aria-hidden="true"
                 >
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
               </div>
               <div>
-                <span className="benefit-title">Teljes időjárásállóság</span>
+                <h3 className="benefit-title">Teljes időjárásállóság</h3>
                 <p className="benefit-desc">
                   100% vízállóság (napi 2000 mm), 85 km/h szélállóság és UV-álló szövet gondoskodik arról, hogy eseményed minden körülmény között zavartalanul zajljon.
                 </p>
@@ -144,6 +146,7 @@ export function WhatIs() {
                   strokeWidth="1.75"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  aria-hidden="true"
                 >
                   <circle cx="12" cy="12" r="10" />
                   <path d="M8 14s1.5 2 4 2 4-2 4-2" />
@@ -152,7 +155,7 @@ export function WhatIs() {
                 </svg>
               </div>
               <div>
-                <span className="benefit-title">Esztétikus megjelenés</span>
+                <h3 className="benefit-title">Esztétikus megjelenés</h3>
                 <p className="benefit-desc">
                   Modern, kreatív és légies hangulatot teremt — ez az, amiért a sztreccs sátor az esküvők, kerti partik és prémium rendezvények első számú választása lett.
                 </p>
@@ -169,13 +172,14 @@ export function WhatIs() {
                   strokeWidth="1.75"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  aria-hidden="true"
                 >
                   <line x1="12" y1="1" x2="12" y2="23" />
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
               <div>
-                <span className="benefit-title">Kiváló befektetés</span>
+                <h3 className="benefit-title">Kiváló befektetés</h3>
                 <p className="benefit-desc">
                   Bérbeadásra, vendéglátásra vagy állandó telepítésre egyaránt ideális. Aktívan segítjük ügyfeleinket saját sztreccs sátor bérlési vállalkozásuk elindításában.
                 </p>

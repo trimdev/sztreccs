@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { SITE } from "@/lib/site";
-import { buildJsonLd } from "@/lib/schema";
+import { buildSiteGraph } from "@/lib/schema";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: "Sztreccs sátor gyártó Debrecen — Ponyva Faktor Kft. | SztreccsSátor",
   description:
-    "Sztreccs sátor (afrikai sátor) gyártás és értékesítés Debrecenből. 9 méret 888 810 Ft-tól, 720 g/m² PVC szövet, M1 tűzbizonyítvány, NEN-EN 8020-41:2012 szabvány, 24 órás országos kiszállítás, 1 év garancia. Ponyva Faktor Kft.",
+    "Sztreccs sátor (afrikai sátor) gyártás Debrecenből: 9 méret 888 810 Ft-tól, prémium 720 g/m² PVC, M1 tűzbizonyítvány, 24 órás országos kiszállítás, 1 év garancia.",
   keywords: [
     "sztreccs sátor",
     "afrikai sátor",
@@ -87,16 +87,26 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const jsonLd = buildJsonLd();
+  const jsonLd = buildSiteGraph();
   return (
     <html lang="hu" className={`${cormorant.variable} ${dmSans.variable}`}>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <a href="#main" className="skip-link">
+          Ugrás a tartalomra
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

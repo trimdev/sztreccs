@@ -1,9 +1,57 @@
 import { SITE } from "./site";
 import { PRODUCTS, TESTIMONIALS } from "./products";
+import { USE_CASES, type UseCase } from "./usecases";
+import { HOME_FAQ, type FaqItem } from "./faq";
 
-export function buildJsonLd() {
-  const orgId = `${SITE.url}/#organization`;
+const orgId = `${SITE.url}/#organization`;
+const localBusinessId = `${SITE.url}/#localbusiness`;
+const websiteId = `${SITE.url}/#website`;
+const hubUrl = `${SITE.url}/felhasznalasi-teruletek`;
 
+const postalAddress = {
+  "@type": "PostalAddress",
+  streetAddress: SITE.address.street,
+  postalCode: SITE.address.postalCode,
+  addressLocality: SITE.address.city,
+  addressCountry: SITE.address.country,
+} as const;
+
+function faqPageNode(id: string, url: string, items: readonly FaqItem[]) {
+  return {
+    "@type": "FAQPage",
+    "@id": id,
+    url,
+    inLanguage: "hu",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
+function breadcrumbNode(
+  id: string,
+  crumbs: { name: string; item: string }[],
+) {
+  return {
+    "@type": "BreadcrumbList",
+    "@id": id,
+    itemListElement: crumbs.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      item: c.item,
+    })),
+  };
+}
+
+/**
+ * Site-wide identity graph — rendered in the root layout on EVERY page.
+ * Note: aggregateRating and the individual Review nodes live in the homepage
+ * graph (buildHomeGraph), where the testimonials are actually visible.
+ */
+export function buildSiteGraph() {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -16,40 +64,21 @@ export function buildJsonLd() {
         logo: `${SITE.url}/hero.webp`,
         email: SITE.email,
         telephone: SITE.phone,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: SITE.address.street,
-          postalCode: SITE.address.postalCode,
-          addressLocality: SITE.address.city,
-          addressCountry: SITE.address.country,
-        },
+        address: postalAddress,
         taxID: SITE.taxId,
         areaServed: "HU",
         sameAs: [],
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "5",
-          bestRating: "5",
-          reviewCount: String(TESTIMONIALS.length),
-          itemReviewed: { "@id": orgId },
-        },
       },
       {
         "@type": ["LocalBusiness", "Manufacturer"],
-        "@id": `${SITE.url}/#localbusiness`,
+        "@id": localBusinessId,
         name: SITE.legalName,
         alternateName: SITE.name,
         url: `${SITE.url}/`,
         parentOrganization: { "@id": orgId },
         email: SITE.email,
         telephone: SITE.phone,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: SITE.address.street,
-          postalCode: SITE.address.postalCode,
-          addressLocality: SITE.address.city,
-          addressCountry: SITE.address.country,
-        },
+        address: postalAddress,
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
@@ -62,7 +91,7 @@ export function buildJsonLd() {
       },
       {
         "@type": "WebSite",
-        "@id": `${SITE.url}/#website`,
+        "@id": websiteId,
         name: `${SITE.name} — ${SITE.legalName}`,
         url: `${SITE.url}/`,
         inLanguage: "hu",
@@ -76,30 +105,43 @@ export function buildJsonLd() {
           "query-input": "required name=search_term_string",
         },
       },
+    ],
+  };
+}
+
+/** Homepage-only graph: WebPage, breadcrumb, rating+reviews, products, FAQ. */
+export function buildHomeGraph() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
       {
         "@type": "WebPage",
         "@id": `${SITE.url}/#webpage`,
         url: `${SITE.url}/`,
         name: `${SITE.name} — Magyarország vezető sztreccs sátor szállítója`,
         inLanguage: "hu",
-        isPartOf: { "@id": `${SITE.url}/#website` },
+        isPartOf: { "@id": websiteId },
         about: { "@id": orgId },
         primaryImageOfPage: `${SITE.url}/hero.webp`,
         datePublished: SITE.publishedDate,
         dateModified: SITE.modifiedDate,
         breadcrumb: { "@id": `${SITE.url}/#breadcrumb` },
       },
+      breadcrumbNode(`${SITE.url}/#breadcrumb`, [
+        { name: "Kezdőlap", item: `${SITE.url}/` },
+      ]),
+      // Partial Organization node — merges with the site-graph node by @id on
+      // this page, attaching the rating where the reviews are actually shown.
       {
-        "@type": "BreadcrumbList",
-        "@id": `${SITE.url}/#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Kezdőlap",
-            item: `${SITE.url}/`,
-          },
-        ],
+        "@type": "Organization",
+        "@id": orgId,
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5",
+          bestRating: "5",
+          reviewCount: String(TESTIMONIALS.length),
+          itemReviewed: { "@id": orgId },
+        },
       },
       ...PRODUCTS.map((p) => ({
         "@type": "Product",
@@ -153,6 +195,70 @@ export function buildJsonLd() {
         },
         reviewBody: t.text,
       })),
+      faqPageNode(`${SITE.url}/#faq`, `${SITE.url}/`, HOME_FAQ),
+    ],
+  };
+}
+
+/** Use-case hub page graph: CollectionPage + breadcrumb + ItemList. */
+export function buildHubGraph() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${hubUrl}#webpage`,
+        url: hubUrl,
+        name: "Sztreccs sátor felhasználási területek",
+        inLanguage: "hu",
+        isPartOf: { "@id": websiteId },
+        about: { "@id": orgId },
+        dateModified: SITE.modifiedDate,
+        breadcrumb: { "@id": `${hubUrl}#breadcrumb` },
+      },
+      breadcrumbNode(`${hubUrl}#breadcrumb`, [
+        { name: "Kezdőlap", item: `${SITE.url}/` },
+        { name: "Felhasználási területek", item: hubUrl },
+      ]),
+      {
+        "@type": "ItemList",
+        "@id": `${hubUrl}#itemlist`,
+        itemListElement: USE_CASES.map((u, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: u.nav,
+          url: `${hubUrl}/${u.slug}`,
+        })),
+      },
+    ],
+  };
+}
+
+/** Individual use-case page graph: WebPage + breadcrumb + FAQPage. */
+export function buildUseCaseGraph(uc: UseCase) {
+  const pageUrl = `${hubUrl}/${uc.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: uc.metaTitle,
+        description: uc.metaDescription,
+        inLanguage: "hu",
+        isPartOf: { "@id": websiteId },
+        about: { "@id": orgId },
+        primaryImageOfPage: `${SITE.url}${uc.image}`,
+        dateModified: SITE.modifiedDate,
+        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+      },
+      breadcrumbNode(`${pageUrl}#breadcrumb`, [
+        { name: "Kezdőlap", item: `${SITE.url}/` },
+        { name: "Felhasználási területek", item: hubUrl },
+        { name: uc.nav, item: pageUrl },
+      ]),
+      faqPageNode(`${pageUrl}#faq`, pageUrl, uc.faq),
     ],
   };
 }

@@ -20,12 +20,12 @@ export function Testimonials() {
               className="testimonial-card"
               delay={idx as 0 | 1 | 2}
             >
-              <span className="stars">★★★★★</span>
+              <span className="stars" role="img" aria-label="5 / 5 csillag">★★★★★</span>
               <p className="testimonial-text">{t.text}</p>
               <div className="testimonial-author">
                 <div className="testimonial-avatar">{t.initials}</div>
                 <div>
-                  <span className="testimonial-name">{t.name}</span>
+                  <h3 className="testimonial-name">{t.name}</h3>
                   <span className="testimonial-title">{t.title}</span>
                 </div>
               </div>

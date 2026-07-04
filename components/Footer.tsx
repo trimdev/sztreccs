@@ -21,12 +21,15 @@ export function Footer() {
         <p className="footer-copy">
           © 2026 {SITE.legalName} · {SITE.address.full} · Adószám: {SITE.taxId}
         </p>
+        <div className="footer-contact">
+          <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a> · <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </div>
         <p className="footer-copy" style={{ margin: "0 0 8px" }}>
           Magyar szívvel, mesterien készítve
         </p>
         <p
           className="footer-copy"
-          style={{ margin: 0, fontSize: "0.75rem", color: "rgba(245,240,232,0.35)" }}
+          style={{ margin: 0, fontSize: "0.75rem", color: "rgba(245,240,232,0.55)" }}
         >
           Utoljára frissítve: <time dateTime={modified}>{formatHungarianDate(modified)}</time> · Az árak és műszaki adatok a fenti dátumon ellenőrizve.
         </p>

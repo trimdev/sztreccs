@@ -19,5 +19,5 @@ export const SITE = {
     close: "16:00",
   },
   publishedDate: "2025-04-15",
-  modifiedDate: "2026-05-14",
+  modifiedDate: "2026-07-04",
 } as const;

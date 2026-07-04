@@ -1,11 +1,16 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { GALLERY_IMAGES } from "@/lib/products";
 
 export function Gallery() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const lightboxRef = useRef<HTMLDivElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const tileRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const triggerIdxRef = useRef<number | null>(null);
+  const prevOpenRef = useRef<number | null>(null);
 
   useEffect(() => {
     const items = document.querySelectorAll(".gallery-item");
@@ -36,10 +41,44 @@ export function Gallery() {
         setOpenIdx((i) => (i === null ? i : (i + 1) % GALLERY_IMAGES.length));
       } else if (e.key === "Escape") {
         setOpenIdx(null);
+      } else if (e.key === "Tab") {
+        const container = lightboxRef.current;
+        if (!container) return;
+        const focusable = Array.from(
+          container.querySelectorAll<HTMLButtonElement>("button")
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey) {
+          if (active === first || !container.contains(active)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (active === last || !container.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
+  }, [openIdx]);
+
+  useEffect(() => {
+    const wasOpen = prevOpenRef.current !== null;
+    const isOpen = openIdx !== null;
+    if (isOpen && !wasOpen) {
+      closeBtnRef.current?.focus();
+    } else if (!isOpen && wasOpen) {
+      const t = triggerIdxRef.current;
+      if (t !== null) {
+        tileRefs.current[t]?.focus();
+        triggerIdxRef.current = null;
+      }
+    }
+    prevOpenRef.current = openIdx;
   }, [openIdx]);
 
   useEffect(() => {
@@ -78,10 +117,18 @@ export function Gallery() {
               const delay = idx % 3;
               const delayClass = delay === 0 ? "" : ` reveal-delay-${delay}`;
               return (
-                <div
+                <button
+                  type="button"
                   key={img.src}
+                  ref={(el) => {
+                    tileRefs.current[idx] = el;
+                  }}
                   className={`gallery-item reveal${delayClass}`}
-                  onClick={() => setOpenIdx(idx)}
+                  onClick={() => {
+                    triggerIdxRef.current = idx;
+                    setOpenIdx(idx);
+                  }}
+                  aria-label={`Nagyítás: ${img.alt}`}
                 >
                   <Image
                     src={img.src}
@@ -90,7 +137,7 @@ export function Gallery() {
                     height={700}
                     loading="lazy"
                   />
-                </div>
+                </button>
               );
             })}
           </div>
@@ -99,12 +146,21 @@ export function Gallery() {
 
       <div
         id="lightbox"
+        ref={lightboxRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Galéria — nagyított nézet"
         className={openIdx !== null ? "open" : ""}
         onClick={(e) => {
           if (e.target === e.currentTarget) setOpenIdx(null);
         }}
       >
-        <button id="lightbox-close" aria-label="Bezárás" onClick={close}>
+        <button
+          id="lightbox-close"
+          ref={closeBtnRef}
+          aria-label="Bezárás"
+          onClick={close}
+        >
           ✕
         </button>
         <button id="lightbox-prev" aria-label="Előző" onClick={prev}>

@@ -170,6 +170,24 @@ export const TESTIMONIALS = [
     title: "Vezérigazgató",
     text: "„Néhány éve vettük a sztreccs sátrat és még mindig teljesen elégedettek vagyunk! A sátor prémium minőségű, nagyon robusztus — évnyi kültéri használat után is úgy áll, mint az új. Messze felülmúlta elvárásainkat.”",
   },
+  {
+    initials: "NR",
+    name: "Nagy Réka",
+    title: "Ügyvezető, Nagyerdő Events Kft. — Debrecen",
+    text: "„A debreceni Nagyerdőben rendezett céges nyári fesztiválunkra béreltünk tőlük egy 10×15-ös sztreccs sátrat. Az árajánlattól a felállításig érződött a profizmus — a sátor gyönyörűen keretezte a rendezvényteret, és a hirtelen jött nyári zápor sem tudott megzavarni minket. Legközelebb is náluk kopogtatunk.”",
+  },
+  {
+    initials: "SG",
+    name: "Szabó Gergő",
+    title: "Tulajdonos, Aranyszandál Rendezvénybirtok — Hajdúszoboszló",
+    text: "„Esküvői helyszínként hetente több rendezvényt bonyolítunk, ezért fontos volt egy strapabíró, mégis elegáns megoldás. A sztreccs sátruk pontosan ezt hozza: a párok rendre megjegyzik, milyen légies, különleges hangulatot teremt. Egy teljes szezon után is makulátlan.”",
+  },
+  {
+    initials: "VA",
+    name: "Varga Anikó",
+    title: "Üzletvezető, Puszta Vendéglátó Kft. — Balmazújváros",
+    text: "„A hortobágyi pusztán a szél sosem kíméli az embert, mi mégis nyugodtan terítünk a sztreccs sátor alatt. A legszelesebb napokon is stabilan áll, a vendégeink pedig imádják, hogy közben nyitott, természetközeli maradt a tér. Kiváló befektetés volt.”",
+  },
 ] as const;
 
 export const GALLERY_IMAGES = [
