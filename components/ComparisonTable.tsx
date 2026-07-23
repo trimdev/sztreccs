@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/Reveal";
-import { PRODUCTS, formatPriceHUFPlain } from "@/lib/products";
+import { PRODUCTS, formatPriceHUF } from "@/lib/products";
 
 export function ComparisonTable() {
   return (
@@ -18,7 +18,7 @@ export function ComparisonTable() {
               <th scope="col">Befogadóképesség (álló)</th>
               <th scope="col">Befogadóképesség (ülő)</th>
               <th scope="col">Felület (m²)</th>
-              <th scope="col" className="price">Ár (Ft)</th>
+              <th scope="col" className="price">Ár</th>
             </tr>
           </thead>
           <tbody>
@@ -28,13 +28,13 @@ export function ComparisonTable() {
                 <td>{p.capacityStanding}</td>
                 <td>{p.capacitySeated}</td>
                 <td>{p.area}</td>
-                <td className="price">{formatPriceHUFPlain(p.priceHUF)}</td>
+                <td className="price">{formatPriceHUF(p.priceHUF)}</td>
               </tr>
             ))}
           </tbody>
         </table>
         <p className="comparison-caption">
-          Árak ÁFA-val. Minden méret komplett felszereléssel és 1 év garanciával. Utolsó árfrissítés: 2026-05-13.
+          Az árak nettó árak, + áfa. Minden méret komplett felszereléssel és 1 év garanciával. Utolsó árfrissítés: 2026-05-13.
         </p>
       </div>
     </Reveal>

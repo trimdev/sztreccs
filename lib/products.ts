@@ -144,7 +144,7 @@ export const PRODUCTS: readonly Product[] = [
 ] as const;
 
 export function formatPriceHUF(price: number): string {
-  return new Intl.NumberFormat("hu-HU").format(price) + " Ft";
+  return new Intl.NumberFormat("hu-HU").format(price) + " Ft + áfa";
 }
 
 export function formatPriceHUFPlain(price: number): string {

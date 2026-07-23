@@ -14,17 +14,17 @@
 
 ## Termékek és árak (2026)
 
-| Méret | Befogadóképesség (álló / ülő) | Ár (Ft, ÁFA-val) |
+| Méret | Befogadóképesség (álló / ülő) | Nettó ár |
 |---|---|---|
-| 5 × 5 m | 25 / 15 | 888 810 |
-| 5 × 7 m | 50 / 50 | 1 198 860 |
-| 7 × 7 m | 50 / 30 | 1 349 338 |
-| 6 × 10 m | 60 / 40 | 1 736 280 |
-| 7 × 10 m | 70 / 50 | 2 025 660 |
-| 8 × 10 m (legnépszerűbb) | 80 / 50 | 2 170 350 |
-| 10 × 10 m | 100 / 65 | 2 397 720 |
-| 10 × 12 m | 120 / 80 | 2 769 780 |
-| 10 × 15 m | 150+ / 120 | 3 699 930 |
+| 5 × 5 m | 25 / 15 | 888 810 Ft + áfa |
+| 5 × 7 m | 50 / 50 | 1 198 860 Ft + áfa |
+| 7 × 7 m | 50 / 30 | 1 349 338 Ft + áfa |
+| 6 × 10 m | 60 / 40 | 1 736 280 Ft + áfa |
+| 7 × 10 m | 70 / 50 | 2 025 660 Ft + áfa |
+| 8 × 10 m (legnépszerűbb) | 80 / 50 | 2 170 350 Ft + áfa |
+| 10 × 10 m | 100 / 65 | 2 397 720 Ft + áfa |
+| 10 × 12 m | 120 / 80 | 2 769 780 Ft + áfa |
+| 10 × 15 m | 150+ / 120 | 3 699 930 Ft + áfa |
 
 Minden sátor komplett felszereléssel: oszlopkészlet, középső rúd, 100 cm karó, M12 karabiner és szemcsavar, kötélracsni, hordtáska, konfigurációs diagram, 1 év garancia.
 

@@ -11,7 +11,7 @@ export const HOME_FAQ: readonly FaqItem[] = [
   },
   {
     q: "Mennyibe kerül egy sztreccs sátor?",
-    a: "Áraink 9 méretben 888 810 Ft-tól indulnak (5×5 m), a legnagyobb, 10×15 méteres sátor 3 699 930 Ft. Minden ár tartalmazza az ÁFÁ-t és a komplett felszerelést. A pontos árakat a méret-összehasonlító táblázatban találod.",
+    a: "Áraink 9 méretben 888 810 Ft + áfa összegtől indulnak (5×5 m), a legnagyobb, 10×15 méteres sátor 3 699 930 Ft + áfa. Minden ár tartalmazza a komplett felszerelést. A pontos árakat a méret-összehasonlító táblázatban találod.",
   },
   {
     q: "Hová és milyen gyorsan szállítotok?",

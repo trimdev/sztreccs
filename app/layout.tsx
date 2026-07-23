@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: "Sztreccs sátor gyártó Debrecen — Ponyva Faktor Kft. | SztreccsSátor",
   description:
-    "Sztreccs sátor (afrikai sátor) gyártás Debrecenből: 9 méret 888 810 Ft-tól, prémium 720 g/m² PVC, M1 tűzbizonyítvány, 24 órás országos kiszállítás, 1 év garancia.",
+    "Sztreccs sátor (afrikai sátor) gyártás Debrecenből: 9 méret 888 810 Ft + áfa összegtől, prémium 720 g/m² PVC, M1 tűzbizonyítvány, 24 órás országos kiszállítás, 1 év garancia.",
   keywords: [
     "sztreccs sátor",
     "afrikai sátor",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     url: `${SITE.url}/`,
     title: "Sztreccs sátor gyártó Debrecen — Ponyva Faktor Kft.",
     description:
-      "Sztreccs sátor 888 810 Ft-tól. 9 méret, prémium 720 g/m² PVC szövet, M1 tűzbizonyítvány, 24 órás kiszállítás, 1 év garancia.",
+      "Sztreccs sátor 888 810 Ft + áfa összegtől. 9 méret, prémium 720 g/m² PVC szövet, M1 tűzbizonyítvány, 24 órás kiszállítás, 1 év garancia.",
     images: [
       {
         url: "/hero.webp",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sztreccs sátor gyártó Debrecen — Ponyva Faktor Kft.",
     description:
-      "Sztreccs sátor 888 810 Ft-tól. 9 méret, 720 g/m² PVC, M1 tűzbizonyítvány, 24 órás kiszállítás.",
+      "Sztreccs sátor 888 810 Ft + áfa összegtől. 9 méret, 720 g/m² PVC, M1 tűzbizonyítvány, 24 órás kiszállítás.",
     images: ["/hero.webp"],
   },
 };

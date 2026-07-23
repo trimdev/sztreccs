@@ -300,7 +300,7 @@ export const USE_CASES: readonly UseCase[] = [
       "Kompakt, könnyen kezelhető sátor születésnaphoz, évfordulóhoz, kerti összejövetelhez — bármilyen kertbe.",
     metaTitle: "Kerti parti sátor — kompakt sztreccs sátor | SztreccsSátor",
     metaDescription:
-      "Kerti parti sátor: kompakt, hangulatos, időjárásálló sztreccs sátor születésnaphoz, évfordulóhoz 15–50 főre. 888 810 Ft-tól, komplett felszereléssel, 1 év garancia.",
+      "Kerti parti sátor: kompakt, hangulatos, időjárásálló sztreccs sátor születésnaphoz, évfordulóhoz 15–50 főre. 888 810 Ft + áfa összegtől, komplett felszereléssel, 1 év garancia.",
     eyebrow: "Felhasználás · Kerti parti",
     h1: "Kerti parti sztreccs sátor",
     image: "/images/Stretchtent-5x5_09-3.jpg",
@@ -325,7 +325,7 @@ export const USE_CASES: readonly UseCase[] = [
     ],
     recommendedSizes: ["5x5", "5x7", "7x7"],
     sizeNote:
-      "15–25 fős kerti összejövetelhez az 5×5 m, 30–50 fős partihoz az 5×7 m vagy 7×7 m a legjobb választás. Az 5×5 m ára 888 810 Ft-tól indul.",
+      "15–25 fős kerti összejövetelhez az 5×5 m, 30–50 fős partihoz az 5×7 m vagy 7×7 m a legjobb választás. Az 5×5 m ára 888 810 Ft + áfa összegtől indul.",
     considerations: [
       {
         title: "Tárolás két rendezvény között",
@@ -347,7 +347,7 @@ export const USE_CASES: readonly UseCase[] = [
       },
       {
         q: "Mennyibe kerül a legkisebb sztreccs sátor?",
-        a: "A legkisebb, 5×5 méteres sztreccs sátor ára 888 810 Ft-tól indul, komplett felszereléssel (oszlopok, karók, karabinerek, hordtáska, konfigurációs diagram) és 1 év garanciával.",
+        a: "A legkisebb, 5×5 méteres sztreccs sátor ára 888 810 Ft + áfa összegtől indul, komplett felszereléssel (oszlopok, karók, karabinerek, hordtáska, konfigurációs diagram) és 1 év garanciával.",
       },
       {
         q: "Fel tudom állítani egyedül?",
